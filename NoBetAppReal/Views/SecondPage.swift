@@ -9,123 +9,128 @@ import SwiftUI
 import AuthenticationServices
 
 struct SecondPage: View {
+    @StateObject private var authVM = AuthViewModel()
+    @State private var goToThirdPage = false
+
     var body: some View {
-        ZStack {
-            // Background Gradient
-            LinearGradient(
-                gradient: Gradient(stops: [
-                    .init(color: Color("mainGradiant"), location: 0.0),
-                    .init(color: Color("mainGradiant"), location: 0.4),
-                    .init(color: Color("secondaryGradiant"), location: 0.8)
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                // Title
-                Text("BETFREE")
-                    .font(.custom("nunito-bold", size: 30))
-                    .foregroundColor(.betFree)
-                    .padding(.top, 10)
+        NavigationView {
+            ZStack {
+                // Background Gradient
+                LinearGradient(
+                    gradient: Gradient(stops: [
+                        .init(color: Color("mainGradiant"), location: 0.0),
+                        .init(color: Color("mainGradiant"), location: 0.4),
+                        .init(color: Color("secondaryGradiant"), location: 0.8)
+                    ]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
                 
-                Spacer()
-                
-                // Mascot
-                Image("icon1")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200)
-                
-                Spacer()
-                
-                // Headline
-                VStack(spacing: 4) {
-                    HStack(spacing: 0) {
-                        Text("No more ")
-                            .font(.custom("nunito-bold", size: 24))
-                            .foregroundColor(.white)
-                        Text("BETS")
-                            .font(.custom("nunito-bold", size: 30))
-                            .foregroundColor(Color("niceGreen"))
-                    }
+                VStack(spacing: 0) {
+                    // Title
+                    Text("BETFREE")
+                        .font(.custom("nunito-bold", size: 30))
+                        .foregroundColor(.betFree)
+                        .padding(.top, 10)
                     
-                    HStack(spacing: 0) {
-                        Text("No more ")
-                            .font(.custom("nunito-bold", size: 24))
-                            .foregroundColor(.white)
-                        Text("REGRETS")
-                            .font(.custom("nunito-bold", size: 30))
-                            .foregroundColor(Color("niceGreen"))
-                    }
-                }
-                .padding(.bottom, 20)
-                
-                // Subtitle
-                Text("Join over 400,000 people to become bet free and regain control of their lives")
-                    .font(.custom("montserrat-regular", size: 16))
-                    .foregroundColor(.white.opacity(0.85))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-                    .lineLimit(nil)
-                
-                Spacer()
-                
-                // Buttons
-                VStack(spacing: 12) {
-                    googleSignInButton
-                    appleSignInButton
+                    Spacer()
                     
-                    HStack {
-                        Rectangle()
-                            .fill(Color.white.opacity(0.3))
-                            .frame(height: 1)
-                        Text("OR")
-                            .foregroundColor(.white.opacity(0.7))
-                            .font(.custom("montserrat-regular", size: 14))
-                            .padding(.horizontal, 16)
-                        Rectangle()
-                            .fill(Color.white.opacity(0.3))
-                            .frame(height: 1)
-                    }
-                    .padding(.vertical, 8)
+                    // Mascot
+                    Image("icon1")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200)
                     
-                    // Continue Button
-                    Button(action: {
-                        // will be linked later
-                    }) {
-                        Text("Continue")
-                            .font(.custom("montserrat-semibold", size: 16))
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 16)
-                            .background(Color("buttonColor"))
-                            .cornerRadius(25)
+                    Spacer()
+                    
+                    // Headline
+                    VStack(spacing: 4) {
+                        HStack(spacing: 0) {
+                            Text("No more ")
+                                .font(.custom("nunito-bold", size: 24))
+                                .foregroundColor(.white)
+                            Text("BETS")
+                                .font(.custom("nunito-bold", size: 30))
+                                .foregroundColor(Color("niceGreen"))
+                        }
+                        
+                        HStack(spacing: 0) {
+                            Text("No more ")
+                                .font(.custom("nunito-bold", size: 24))
+                                .foregroundColor(.white)
+                            Text("REGRETS")
+                                .font(.custom("nunito-bold", size: 30))
+                                .foregroundColor(Color("niceGreen"))
+                        }
                     }
-                }
-                .padding(.horizontal, 24)
-                
-                // Sign up text
-                HStack(spacing: 4) {
-                    Text("Don't have an account?")
-                        .foregroundColor(.white.opacity(0.8))
-                        .font(.custom("montserrat-regular", size: 14))
-                    Button("Sign up")  {
-                        // TBD
+                    .padding(.bottom, 20)
+                    
+                    // Subtitle
+                    Text("Join over 400,000 people to become bet free and regain control of their lives")
+                        .font(.custom("montserrat-regular", size: 16))
+                        .foregroundColor(.white.opacity(0.85))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
+                        .lineLimit(nil)
+                    
+                    Spacer()
+                    
+                    // Buttons
+                    VStack(spacing: 12) {
+                        googleSignInButton
+                        appleSignInButton
+                        
+                        HStack {
+                            Rectangle()
+                                .fill(Color.white.opacity(0.3))
+                                .frame(height: 1)
+                            Text("OR")
+                                .foregroundColor(.white.opacity(0.7))
+                                .font(.custom("montserrat-regular", size: 14))
+                                .padding(.horizontal, 16)
+                            Rectangle()
+                                .fill(Color.white.opacity(0.3))
+                                .frame(height: 1)
+                        }
+                        .padding(.vertical, 8)
+                        
+                        // Continue Button
+                        Button(action: {
+                            // TBD
+                        }) {
+                            Text("Skip For Now")
+                                .font(.custom("montserrat-semibold", size: 16))
+                                .foregroundColor(.black)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                                .background(Color("buttonColor"))
+                                .cornerRadius(25)
+                        }
                     }
-                    .font(.custom("montserrat-bold", size: 14))
-                    .foregroundColor(.white)
+                    .padding(.horizontal, 24)
+                    
+                    // Sign up text
+                   
+                    .padding(.top, 16)
+                    .padding(.bottom, 50)
                 }
-                .padding(.top, 16)
-                .padding(.bottom, 40)
+
+                // Navigation to ThirdPage
+                NavigationLink(destination: ThirdPage(), isActive: $goToThirdPage) {
+                    EmptyView()
+                }
             }
         }
     }
     
     private var googleSignInButton: some View {
         Button(action: {
-            // TODO: Add Google sign-in logic
+            authVM.signInWithGoogle { success in
+                if success {
+                    goToThirdPage = true
+                }
+            }
         }) {
             HStack(spacing: 12) {
                 Image("Google")
