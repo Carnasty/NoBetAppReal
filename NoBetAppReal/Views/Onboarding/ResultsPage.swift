@@ -43,23 +43,9 @@ struct ResultsPage: View {
                 .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
-                    // Header with Back Button
-                    HStack {
-                        Button(action: {
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 20, weight: .medium))
-                                .foregroundColor(.white)
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding(.horizontal, 24)
-                    .padding(.top, 10)
-                    
+                    // No back button - users can't go back after analysis
                     Spacer()
-                        .frame(maxHeight: 20)
+                        .frame(maxHeight: 40)
                     
                     // Analysis Complete Section
                     VStack(spacing: 16) {
@@ -92,7 +78,6 @@ struct ResultsPage: View {
                     }
                     
                     Spacer()
-                        .frame(maxHeight: 40)
                     
                     // Bar Chart Container
                     VStack(spacing: 0) {
@@ -103,10 +88,17 @@ struct ResultsPage: View {
                                 // Y-axis labels
                                 VStack(alignment: .trailing, spacing: 0) {
                                     ForEach([100, 80, 60, 40, 20, 0], id: \.self) { percentage in
-                                        Text("\(percentage)%")
-                                            .font(.custom("montserrat-regular", size: 12))
-                                            .foregroundColor(.gray)
-                                            .frame(height: 30)
+                                        HStack {
+                                            Text("\(percentage)%")
+                                                .font(.custom("montserrat-regular", size: 12))
+                                                .foregroundColor(.gray)
+                                            
+                                            // Horizontal grid line
+                                            Rectangle()
+                                                .fill(Color.gray.opacity(0.3))
+                                                .frame(height: 1)
+                                        }
+                                        .frame(height: 30)
                                     }
                                 }
                                 .frame(width: 40)
@@ -127,11 +119,11 @@ struct ResultsPage: View {
                                                 .fill(
                                                     LinearGradient(
                                                         gradient: Gradient(colors: [
-                                                            Color.green,
-                                                            Color.blue
+                                                            Color.blue,
+                                                            Color.green
                                                         ]),
-                                                        startPoint: .top,
-                                                        endPoint: .bottom
+                                                        startPoint: .bottom,
+                                                        endPoint: .top
                                                     )
                                                 )
                                                 .frame(width: 60, height: yourScoreHeight)
@@ -156,11 +148,11 @@ struct ResultsPage: View {
                                                 .fill(
                                                     LinearGradient(
                                                         gradient: Gradient(colors: [
-                                                            Color.green,
-                                                            Color.blue
+                                                            Color.blue,
+                                                            Color.green
                                                         ]),
-                                                        startPoint: .top,
-                                                        endPoint: .bottom
+                                                        startPoint: .bottom,
+                                                        endPoint: .top
                                                     )
                                                 )
                                                 .frame(width: 60, height: averageHeight)
@@ -192,7 +184,7 @@ struct ResultsPage: View {
                     HStack(spacing: 4) {
                         Text("\(Int(viewModel.calculateScore()))%")
                             .font(.custom("nunito-semibold", size: 24))
-                            .foregroundColor(Color.orange)
+                            .foregroundColor(Color.red)
                         
                         Text("higher dependance on gambling")
                             .font(.custom("montserrat-regular", size: 16))
@@ -223,10 +215,8 @@ struct ResultsPage: View {
                     .padding(.bottom, 50)
                 }
                 
-                // Navigation to Plan Page
-                NavigationLink(destination: Text("Plan Page - Coming Soon").navigationBarHidden(true), isActive: $goToPlanPage) {
-                    EmptyView()
-                }
+                // Navigation to Custom Plan Page
+                NavigationLink("", destination: CustomPlanView(viewModel: viewModel).navigationBarHidden(true), isActive: $goToPlanPage)
             }
         }
         .navigationBarHidden(true)

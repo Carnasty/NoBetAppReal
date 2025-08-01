@@ -17,6 +17,13 @@
 	<array>
 		<string>Nunito-SemiBold.ttf</string>
 		<string>Montserrat-Medium.ttf</string>
+		<string>Montserrat-Black.ttf</string>
+		<string>Montserrat-Bold.ttf</string>
+		<string>Nunito-ExtraBold.ttf</string>
+		<string>Nunito-Black</string>
+		<string>Montserrat-SemiBold</string>
 	</array>
+	<key>CFBundleIdentifier</key>
+	<string>Test.NoBetAppReal</string>
 </dict>
 </plist>

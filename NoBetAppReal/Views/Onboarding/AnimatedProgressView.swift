@@ -85,19 +85,9 @@ public struct AnimatedProgressView: View {
                 }
 
                 VStack(spacing: 0) {
-                    // Back Button
-                    HStack {
-                        Button(action: {
-                            viewModel.stopAnimation()
-                            presentationMode.wrappedValue.dismiss()
-                        }) {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 20, weight: .medium))
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    .padding(.horizontal, 24)
+                    // No back button - users can't go back during calculation
+                    Spacer()
+                        .frame(maxHeight: 40)
                     .padding(.top, 10)
 
                     Spacer()
@@ -125,14 +115,14 @@ public struct AnimatedProgressView: View {
                                 )
                                 .frame(width: 220, height: 220)
                                 .rotationEffect(.degrees(-90))
-                                .animation(.easeInOut(duration: 0.05), value: viewModel.progress)
+                                .animation(.easeOut(duration: 0.3), value: viewModel.progress)
                                 .overlay(
                                     Circle()
                                         .fill(Color.white)
                                         .frame(width: 10, height: 10)
                                         .offset(x: 0, y: -110)
                                         .rotationEffect(.degrees(viewModel.progress * 3.6))
-                                        .animation(.easeInOut(duration: 0.05), value: viewModel.progress)
+                                        .animation(.easeOut(duration: 0.3), value: viewModel.progress)
                                 )
 
                             // Mascot Image
@@ -148,13 +138,12 @@ public struct AnimatedProgressView: View {
                         VStack(spacing: 7) {
                         
                             Text("\(Int(viewModel.progress))%")
-                                .font(.custom("Montserrat-Extrabold", size: 42))
+                                .font(.custom("Nunito-Extrabold", size: 42))
                                 .foregroundColor(.white)
-                                .animation(.easeInOut(duration: 0.05), value: viewModel.progress)
                                 .padding(.top, 15)
 
                             Text("Calculating")
-                                .font(.custom("nunito-Extrabold", size: 32))
+                                .font(.custom("Montserrat-bold", size: 32))
                                 .foregroundColor(.white)
 
                             Text(subtitleText)
@@ -167,12 +156,7 @@ public struct AnimatedProgressView: View {
                 }
 
                 // Navigation to Results Page
-                NavigationLink(
-                    destination: ResultsPage(viewModel: onboardingViewModel).navigationBarHidden(true),
-                    isActive: $viewModel.goToResultsPage
-                ) {
-                    EmptyView()
-                }
+                NavigationLink("", destination: ResultsPage(viewModel: onboardingViewModel).navigationBarHidden(true), isActive: $viewModel.goToResultsPage)
             }
         }
         .navigationBarHidden(true)

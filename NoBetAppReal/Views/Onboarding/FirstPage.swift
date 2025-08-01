@@ -69,22 +69,19 @@ struct FirstPage: View {
                             Spacer()
 
                             // 🟢 NavigationLink-wrapped Button
-                            NavigationLink(
-                                destination: SecondPage(),
-                                isActive: $viewModel.goToSecondPage
-                            ) {
-                                Button(action: {
-                                    viewModel.startQuizTapped()
-                                }) {
-                                    Text("Start Quiz")
-                                        .font(.custom("montserrat-regular", size: 15))
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                        .background(Color("buttonColor"))
-                                        .foregroundColor(.black)
-                                        .cornerRadius(25)
-                                        .padding(.horizontal)
-                                }
+                            NavigationLink("", destination: SecondPage(), isActive: $viewModel.goToSecondPage)
+                            
+                            Button(action: {
+                                viewModel.startQuizTapped()
+                            }) {
+                                Text("Start Quiz")
+                                    .font(.custom("montserrat-regular", size: 15))
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color("buttonColor"))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(25)
+                                    .padding(.horizontal)
                             }
 
                             Spacer(minLength: 30)
